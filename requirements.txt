@@ -9,4 +9,4 @@ typing-extensions
 sqlalchemy
 psycopg2-binary
 alembic
-mulitpart
+python-multipart
