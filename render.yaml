@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: moodframe-api
+    runtime: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn app.utils.main:app --host 0.0.0.0 --port 10000"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13
+      - key: ENV
+        value: production
+      - key: SPOTIPY_CLIENT_ID
+        sync: false
+      - key: SPOTIPY_CLIENT_SECRET
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
