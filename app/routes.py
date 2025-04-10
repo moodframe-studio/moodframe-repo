@@ -1,13 +1,19 @@
-# app/routes.py
-
-from fastapi import APIRouter, UploadFile, File
-from .analyze_image import analyze_image
+from fastapi import APIRouter, UploadFile, File, HTTPException
+import asyncio
+from app.analyze_image import analyze_image
 
 router = APIRouter()
 
 
-@router.post("/analyze")
-async def analyze_image_and_get_moods(image: UploadFile = File(...)):
-    contents = await image.read()
-    top_moods = analyze_image(contents)
-    return {"top_moods": top_moods}
+@router.post("/analyze_image")
+async def analyze(file: UploadFile = File(...)):
+    try:
+        content = await file.read()
+
+        # Run heavy computation in thread
+        top_moods = await asyncio.to_thread(analyze_image, content)
+
+        return {"top_moods": top_moods}
+
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
