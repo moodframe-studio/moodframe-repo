@@ -5,28 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cffddcf7-6b65-4575-8c60-b6cba3a07676" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/moodframe-studio.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LICENSE.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/analyze_image.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/model/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/model/database.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/model/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/mood_to_genres.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/moods.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/reset_feedback.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/routes.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/spotify_client.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/utils/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +95,7 @@
       <workItem from="1744177992920" duration="13212000" />
       <workItem from="1744203741517" duration="987000" />
       <workItem from="1744205890989" duration="2849000" />
-      <workItem from="1744277017785" duration="7002000" />
+      <workItem from="1744277017785" duration="7866000" />
     </task>
     <servers />
   </component>
