@@ -84,6 +84,10 @@ def save_song_to_db(song: SongCreate, db: Session) -> Song:
 
 # -------------------------------
 # 🎵 Save Song (with moods)
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to Moodframe!"}
+
 @app.post("/save_song")
 def save_song(song: SongCreate, db: Session = Depends(get_db)):
     saved = save_song_to_db(song, db)
