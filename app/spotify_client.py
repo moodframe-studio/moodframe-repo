@@ -1,5 +1,3 @@
-# app/spotify_client.py
-
 import os
 import random
 from typing import List, Dict
@@ -20,7 +18,7 @@ auth_manager = SpotifyClientCredentials(
 )
 sp = spotipy.Spotify(auth_manager=auth_manager)
 
-def get_tracks_for_mood(mood: str, limit: int = 5) -> List[Dict]:
+def get_tracks_for_mood(mood: str, limit: int = 1) -> List[Dict]:
     genres = MOOD_TO_GENRES.get(mood.lower())
     if not genres:
         return []
@@ -34,9 +32,11 @@ def get_tracks_for_mood(mood: str, limit: int = 5) -> List[Dict]:
                 "artist": item["artists"][0]["name"],
                 "album_image": item["album"]["images"][0]["url"],
                 "spotify_url": item["external_urls"]["spotify"],
+                "popularity": item.get("popularity", 50),
+                "language": "english"  # Optional: language detection can be added later
             }
             tracks.append(track)
 
-    # Shuffle and return top N
     random.shuffle(tracks)
     return tracks[:limit]
+

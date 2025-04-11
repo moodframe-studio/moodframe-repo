@@ -1,12 +1,13 @@
 fastapi
 uvicorn
+gunicorn
 python-dotenv
 spotipy
 torch
 transformers
 Pillow
-typing-extensions
 sqlalchemy
 psycopg2-binary
 alembic
 python-multipart
+Pydantic

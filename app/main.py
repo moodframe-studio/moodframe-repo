@@ -1,24 +1,23 @@
+# 1. Imports
 from fastapi import FastAPI, Query, Depends, HTTPException
+from app.schemas import SongCreate, UserFeedbackCreate
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from typing import List, Optional
+from pydantic import BaseModel
 
 from app.spotify_client import get_tracks_for_mood
 from app.routes import router as analyze_router
 from app.model.models import Base, Song, UserFeedback, Mood
 from app.model.database import engine, SessionLocal
-from pydantic import BaseModel
 
-# -------------------------------
-# Create DB tables
+# 2. Create DB tables
 Base.metadata.create_all(bind=engine)
 
-# -------------------------------
-# Initialize FastAPI app
+# 3. Initialize FastAPI app
 app = FastAPI()
 
-# -------------------------------
-# Allow CORS
+# 4. CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -27,12 +26,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# -------------------------------
-# Register additional routes
+# 5. Include additional routes
 app.include_router(analyze_router)
 
-# -------------------------------
-# Dependency to get DB session
+# 6. Dependency to get DB session
 def get_db():
     db = SessionLocal()
     try:
@@ -40,8 +37,7 @@ def get_db():
     finally:
         db.close()
 
-# -------------------------------
-# Pydantic model for incoming song
+# 7. Pydantic model for song input
 class SongCreate(BaseModel):
     title: str
     artist: str
@@ -51,7 +47,6 @@ class SongCreate(BaseModel):
     language: Optional[str] = "english"
     moods: List[str]
 
-# -------------------------------
 # Helper function to save song
 def save_song_to_db(song: SongCreate, db: Session) -> Song:
     existing = db.query(Song).filter(Song.title == song.title, Song.artist == song.artist).first()
@@ -82,8 +77,8 @@ def save_song_to_db(song: SongCreate, db: Session) -> Song:
     db.refresh(db_song)
     return db_song
 
-# -------------------------------
-# 🎵 Save Song (with moods)
+# Routes
+
 @app.get("/")
 def read_root():
     return {"message": "Welcome to Moodframe!"}
@@ -93,8 +88,6 @@ def save_song(song: SongCreate, db: Session = Depends(get_db)):
     saved = save_song_to_db(song, db)
     return {"message": "Song saved", "song": saved}
 
-# -------------------------------
-# 🎵 Get Song for a given mood
 @app.get("/get_song")
 def get_song(mood: str, user_id: str, db: Session = Depends(get_db)):
     mood_obj = db.query(Mood).filter_by(name=mood).first()
@@ -131,17 +124,18 @@ def get_song(mood: str, user_id: str, db: Session = Depends(get_db)):
 
     return song
 
-# -------------------------------
-# 🎵 User Feedback
 @app.post("/feedback")
-def feedback(user_id: str, song_id: int, liked: bool, db: Session = Depends(get_db)):
-    feedback_entry = UserFeedback(user_id=user_id, song_id=song_id, liked=liked)
+def feedback(feedback_data: UserFeedbackCreate, db: Session = Depends(get_db)):
+    feedback_entry = UserFeedback(
+        user_id=feedback_data.user_id,
+        song_id=feedback_data.song_id,
+        liked=feedback_data.liked
+    )
     db.add(feedback_entry)
     db.commit()
     return {"message": "Feedback recorded"}
 
-# -------------------------------
-# 🎵 Optional: Direct Spotify Search Test
+
 @app.get("/songs")
 def songs_by_mood(mood: str = Query(..., description="Mood like 'chill', 'melancholic'")):
     track = get_tracks_for_mood(mood)

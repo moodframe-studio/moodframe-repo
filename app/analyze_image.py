@@ -1,4 +1,5 @@
 import torch
+torch.set_num_threads(1)
 from PIL import Image, UnidentifiedImageError
 from io import BytesIO
 from transformers import CLIPProcessor, CLIPModel
